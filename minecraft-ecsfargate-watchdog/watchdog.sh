@@ -108,7 +108,7 @@ do
   fi
 done
 echo "Detected $EDITION edition"
-
+ 
 if [ "$EDITION" == "java" ]
 then
   echo "Waiting for Minecraft RCON to begin listening for connections..."
