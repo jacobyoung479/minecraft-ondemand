@@ -59,34 +59,35 @@ echo "Updating DNS record for $SERVERNAME and $MONITORNAME to $PUBLICIP"
 ## prepare json file
 cat << EOF >> minecraft-dns.json
 {
-  "Comment": "Fargate Public IP change for Minecraft Server",
-  "Changes": [
-    {
-      "Action": "UPSERT",
-      "ResourceRecordSet": {
-        "Name": "$SERVERNAME",
-        "Type": "A",
-        "TTL": 30,
-        "ResourceRecords": [
-          {
-            "Value": "$PUBLICIP"
-          }
-        ]
-      },
-      {
-      "Action": "UPSERT",
-      "ResourceRecordSet": {
-        "Name": "$MONITORNAME",
-        "Type": "A",
-        "TTL": 30,
-        "ResourceRecords": [
-          {
-            "Value": "$PUBLICIP"
-          }
-        ]
-      }
-    }
-  ]
+    "Comment": "Fargate Public IP change for Minecraft Server",
+    "Changes": [
+        {
+            "Action": "UPSERT",
+            "ResourceRecordSet": {
+                "Name": "$SERVERNAME",
+                "Type": "A",
+                "TTL": 30,
+                "ResourceRecords": [
+                    {
+                        "Value": "$PUBLICIP"
+                    }
+                ]
+            }
+        },
+        {
+            "Action": "UPSERT",
+            "ResourceRecordSet": {
+                "Name": "$MONITORNAME",
+                "Type": "A",
+                "TTL": 30,
+                "ResourceRecords": [
+                    {
+                        "Value": "$PUBLICIP"
+                    }
+                ]
+            }
+        }
+    ]
 }
 EOF
 aws route53 change-resource-record-sets --hosted-zone-id $DNSZONE --change-batch file://minecraft-dns.json
